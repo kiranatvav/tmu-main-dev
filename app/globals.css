@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* body {
+  height: 100%;
+  overflow-x: hidden;
+} */
+
+body {
+  background: #0d0d0d;
+  color: var(--foreground);
+  font-family:
+    "Satoshi",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+* {
+
+  box-sizing: border-box;
+  font-family:
+    "Satoshi",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* VTurb Video Player - Simplified to match original embed */
+vturb-smartplayer {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.video-no-events {
+  pointer-events: none !important;
+  touch-action: none !important;
+}
+
+
+/* Video glass: disable on mobile, enable on sm+ */
+.video-glass {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .video-glass {
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid transparent;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+      linear-gradient(
+        135deg,
+        rgba(0, 255, 5, 0.6) 0%,
+        rgba(0, 255, 5, 0) 40%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0.3) 100%
+      );
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    isolation: isolate;
+    will-change: transform;
+  }
+}
+
+/* Custom Country Select */
+.country-select-shell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0.75rem;
+  min-width: 110px;
+}
+
+.country-select-shell.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.country-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem 0.35rem 0.55rem;
+  width: 100%;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
+  color: white;
+}
+
+.country-select-trigger:focus-visible {
+  border-color: #00ff05;
+  outline: none;
+}
+
+.country-select-flag {
+  display: inline-flex;
+  align-items: center;
+}
+
+.country-select-flag svg {
+  width: 28px;
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.country-select-code {
+  color: white;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.country-select-caret {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.country-select-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 320px;
+  max-height: 400px;
+  background-color: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  z-index: 99999;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.country-select-search {
+  padding: 0.6rem 0.75rem 0.25rem;
+}
+
+.country-select-search input {
+  width: 100%;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 0.75rem;
+  color: white;
+  font-size: 14px;
+}
+
+.country-select-search input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.country-select-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.35rem 0.15rem;
+}
+
+.country-select-list.scrollable {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.country-select-option {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: white;
+}
+
+.country-select-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.country-select-option.is-active {
+  background: rgba(0, 255, 5, 0.08);
+}
+
+.country-option-label {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.country-option-code {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Black Friday Banner Animation */
+@keyframes scroll-banner {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Sonner Toast Customization */
+[data-sonner-toaster] {
+  font-family:
+    "Satoshi",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+[data-sonner-toast] {
+  border-radius: 16px !important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: rgba(0, 255, 5, 0.08) !important;
+  border: 1px solid rgba(0, 255, 5, 0.3) !important;
+  color: #00ff05 !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: rgba(255, 0, 0, 0.08) !important;
+  border: 1px solid rgba(255, 50, 50, 0.3) !important;
+  color: #ff8888 !important;
+}
+
+[data-sonner-toast][data-type="success"] [data-icon] svg {
+  color: #00ff05 !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-icon] svg {
+  color: #ff8888 !important;
+}

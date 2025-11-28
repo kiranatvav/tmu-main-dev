@@ -5,5 +5,5 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "cta";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
-  type?: "button" | "submit" | "reset";
+  type?: "submit" | "reset" | "button" | undefined
 }

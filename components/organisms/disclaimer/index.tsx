@@ -6,7 +6,7 @@ export const Disclaimer = () => {
       <div className="max-w-7xl flex flex-col gap-6 md:flex-row justify-between items-center mx-auto">
         {/* Disclaimer Text */}
         {/* <div className="text-center mb-4">
-          <p className="text-xs leading-relaxed text-[#555555]">
+          <p className="text-xs leading-relaxed text-[#FFFFFF]">
             The Matrix Unlocked provides education only. Trading involves risk
             of loss and is not suitable for everyone. Past performance is not
             necessarily indicative of future results.
@@ -15,7 +15,7 @@ export const Disclaimer = () => {
 
                 {/* Copyright */}
         <div className="text-center ">
-          <p className="text-xs text-[#555555]">
+          <p className="text-xs text-[#FFFFFF]">
             © {new Date().getFullYear()} Copyright The Matrix Unlocked. All rights
             reserved.
           </p>
@@ -25,21 +25,21 @@ export const Disclaimer = () => {
         <div className="flex flex-wrap justify-center items-center gap-1.5 text-xs">
           <Link
             href="/privacy"
-            className="text-[#555555] hover:text-[#00ff05] transition-colors duration-200"
+            className="text-[#FFFFFF] hover:text-[#00ff05] transition-colors duration-200"
           >
             Privacy Policy
           </Link>
-          <span className="bg-[#555555] inline-block w-[1px] h-3"></span>
+          <span className="bg-[#FFFFFF] inline-block w-[1px] h-3"></span>
           <Link
             href="/terms"
-            className="text-[#555555] hover:text-[#00ff05] transition-colors duration-200"
+            className="text-[#FFFFFF] hover:text-[#00ff05] transition-colors duration-200"
           >
             Terms of Service
           </Link>
-          <span className="bg-[#555555] inline-block w-[1px] h-3"></span>
+          <span className="bg-[#FFFFFF] inline-block w-[1px] h-3"></span>
           <Link
             href="/disclaimer"
-            className="text-[#555555] hover:text-[#00ff05] transition-colors duration-200"
+            className="text-[#FFFFFF] hover:text-[#00ff05] transition-colors duration-200"
           >
             Disclaimer
           </Link>

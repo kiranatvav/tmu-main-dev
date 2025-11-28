@@ -12,6 +12,21 @@ export const MovieCalendarTemplate = () => {
 
   return (
     <SharedLayout hideLogo>
+      {/* BG Layer */}
+      <div
+        className="fixed inset-0 -z-30"
+        style={{
+          maxWidth: "100vw",
+          backgroundImage: `
+            url('/calendar-main-bg.png')`,
+          backgroundSize: `
+            cover`,
+          backgroundRepeat: `
+            no-repeat`,
+          backgroundPosition: `top center`,
+        }}
+      />
+      
       {/* Exit Intent Modal */}
       <ExitIntentModal isOpen={showModal} onClose={closeModal} />
       {/* Parent Container */}
@@ -40,7 +55,7 @@ export const MovieCalendarTemplate = () => {
                 Schedule your private 1:1 strategy session to discover how <br/>Time
                 & Price moves all markets.
               </p>
-              <div className="pt-1 lg:pt-0 border-t border-white/10 ">
+              <div className="pt-1 lg:pt-0 ">
                 <p
                   className="text-white text-[13px] md:text-[14px] leading-[1.5] "
                   style={{
@@ -66,7 +81,7 @@ export const MovieCalendarTemplate = () => {
 
           {/* Right Column - Calendar (2/3) */}
           <div className="relative w-full lg:max-w-[595px]">
-              <div className="absolute -top-[40%] left-[48%] -translate-x-1/2  h-[150%] w-[240%] -z-10">
+              <div className="absolute -top-[23rem] lg:-top-[22rem] left-[48%] -translate-x-1/2 h-[190%] max-h-[78rem] w-[140%] md:w-[180%]  -z-10">
                   <Image
                     src="/form-gradient-bg.png"
                     alt=""

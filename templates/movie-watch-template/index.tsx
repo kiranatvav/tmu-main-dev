@@ -13,6 +13,17 @@ export const MovieWatchTemplate = () => {
 
   return (
     <SharedLayout hideLogo hideBinary>
+      {/* BG layer */}
+      <div
+        className="absolute inset-0 -z-30 "
+        style={{
+          maxWidth : "100vw",
+          backgroundImage: "url(/main-grid-bg.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       {/* Exit Intent Modal */}
       <ExitIntentModal isOpen={showModal} onClose={closeModal} />
       {/* Main Content - All visible on desktop */}
@@ -124,8 +135,8 @@ export const MovieWatchTemplate = () => {
                     mixBlendMode: "screen",
                   }}
                 />
-                <div className="relative z-10">
-                  <VideoCTA />
+                <div className="relative z-10 ">
+                  <VideoCTA />  
                 </div>
               </div>
               </div>

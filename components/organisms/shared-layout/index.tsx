@@ -18,16 +18,16 @@ export const SharedLayout = ({
   return (
     <div className="min-h-screen w-screen bg-[#0D0D0D] flex flex-col relative pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       {/* Grid SVG Background */}
-      <div
+      {/* <div
         className="absolute inset-0 z-0 "
         style={{
           maxWidth : "100vw",
-          backgroundImage: "url(/main-grid-bg.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundImage: "url(/main-grid-bgv2.png)",
+          backgroundSize: "100% auto",
+          backgroundPosition: "top",
+          backgroundRepeat: "repeat-y",
         }}
-      />
+      /> */}
 
       {/* Binary Matrix Background - Responsive */}
       {!hideBinary && (

@@ -14,6 +14,17 @@ export const FunnelPageTemplate = () => {
 
   return (
     <SharedLayout hideLogo>
+      {/* BG layer */}
+      <div
+        className="absolute inset-0 -z-30 "
+        style={{
+          maxWidth : "100vw",
+          backgroundImage: "url(/main-grid-bg.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       {/* Exit Intent Modal */}
       <ExitIntentModal isOpen={showModal} onClose={closeModal} />
       {/* Parent Container */}
@@ -73,17 +84,17 @@ export const FunnelPageTemplate = () => {
             {/* Left Column - Video (wider, first on mobile) */}
             <div className="w-full relative max-w-[30rem] md:max-w-[56rem] h-full   overflow-hidden rounded-4xl flex flex-col items-center ">
               {/* <VideoPlayer exitIntentOpen={showModal} className=" relative overflow-hidden " /> */}
-              <div className="absolute bottom-3 sm:bottom-8 right-3 sm:right-8  z-20">
-                <div className="flex gap-2 sm:gap-5 items-end">
-                  <div className="w-[48px] sm:w-[72px]  aspect-square">
-                  <Image src={"/tmu-white-logo.png"} alt="The Matrix Unlocked" fill className="object-contain max-w-[48px] sm:max-w-[72px]" />
+              <div className="absolute bottom-3 md:bottom-8 right-3 md:right-8  z-20">
+                <div className="flex gap-2 md:gap-5 items-end">
+                  <div className="w-[48px] md:w-[72px]  aspect-square">
+                  <Image src={"/tmu-white-logo.png"} alt="The Matrix Unlocked" fill className="object-contain max-w-[48px] md:max-w-[72px]" />
                 </div>
                 <div >
-                  <h3 className="text-white text-2xl sm:text-[32px] leading-5 sm:leading-8" style={{
+                  <h3 className="text-white text-2xl md:text-[32px] leading-5 md:leading-8" style={{
                     fontFamily : 'Aguafina Script, Satoshi'
                   }}>Frank Warrink</h3>
-                  <p className="text-white text-[10px] sm:text-xs">Founder CEO, Visionary</p>
-                  <p className="text-white text-[10px] sm:text-xs">The Matrix Unlocked</p>
+                  <p className="text-white text-[10px] md:text-xs">Founder CEO, Visionary</p>
+                  <p className="text-white text-[10px] md:text-xs">The Matrix Unlocked</p>
                 </div>
                 </div>
               </div>

@@ -52,10 +52,38 @@ vturb-smartplayer {
   margin: 0 auto;
 }
 
-.video-no-events {
-  pointer-events: none !important;
-  touch-action: none !important;
+/* ARC 1 — long fade-in, hold, then fade-out */
+@keyframes arc1-pulse {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.5; }
+  40%  { opacity: 1; }   /* reaches full opacity */
+  60%  { opacity: 1; }   /* reaches full opacity */
+  80%  { opacity: 1; }   /* HOLD while arc2 animates */
+  90%  { opacity: 0.5; }   /* HOLD while arc2 animates */
+  100% { opacity: 0; }   /* fade out ONLY after arc2 is done */
 }
+
+/* ARC 2 — starts AFTER arc1 peak */
+@keyframes arc2-pulse {
+  0%   { opacity: 0; }
+  20%  { opacity: 0; }
+  40%  { opacity: 0.5; }   /* wait until arc1 peaks */
+  60%  { opacity: 1; }   /* fade in */
+  80%  { opacity: 0.5; }   /* fade out COMPLETELY */
+  90% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.vol-arc-1 {
+  animation: arc1-pulse 1.5s linear infinite;
+}
+
+.vol-arc-2 {
+  animation: arc2-pulse 1.5s linear infinite;
+}
+
+
+
 
 
 /* Video glass: disable on mobile, enable on sm+ */

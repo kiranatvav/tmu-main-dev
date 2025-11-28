@@ -102,12 +102,12 @@ export const CalendarSection = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-6">
+    <div className="w-full max-w-[595px] mx-auto bg-black overflow-hidden rounded-4xl ">
       {/* Calendar Iframe Container - With glass effect and gradient border */}
       <div
         className="relative w-full overflow-hidden"
         style={{
-          borderRadius: "20px",
+          borderRadius: "32px",
           background: "rgba(255, 255, 255, 0.02)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
@@ -137,6 +137,7 @@ export const CalendarSection = () => {
             style={{
               width: "100%",
               border: "none",
+              borderRadius : "32px",
               overflow: "hidden",
               minHeight: "600px",
             }}

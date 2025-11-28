@@ -58,7 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <link rel="dns-prefetch" href="https://images.converteai.net" />
         <link rel="dns-prefetch" href="https://api.vturb.com.br" />
       </head>
-      <body className="antialiased" style={{ paddingTop: "45px" }}>
+      <body className="antialiased" style={{ paddingTop: "40px" }}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

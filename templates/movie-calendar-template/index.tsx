@@ -5,6 +5,7 @@ import { SharedLayout } from "@/components/organisms/shared-layout";
 import { Logo } from "@/components/molecules/logo";
 import { ExitIntentModal } from "@/components/organisms/exit-intent-modal";
 import { useExitIntent } from "@/hooks/useExitIntent";
+import Image from "next/image";
 
 export const MovieCalendarTemplate = () => {
   const { showModal, closeModal } = useExitIntent({ enabled: false });
@@ -14,41 +15,36 @@ export const MovieCalendarTemplate = () => {
       {/* Exit Intent Modal */}
       <ExitIntentModal isOpen={showModal} onClose={closeModal} />
       {/* Parent Container */}
-      <div className="w-full flex items-center justify-center px-4 py-6 lg:py-12">
+      <div className="w-full flex items-center justify-center px-4 py-6 lg:py-12 overflow-x-clip">
         {/* Two Column Grid: 1/3 for text, 2/3 for calendar */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 w-full max-w-[1800px] items-center">
+        <div className="flex flex-col justify-center items-center lg:items-start lg:flex-row gap-18 lg:gap-6 w-full max-w-7xl ">
           {/* Left Column - Logo & Text (1/3) */}
-          <div className="flex flex-col items-center lg:items-start gap-4 md:gap-6 justify-self-center lg:justify-self-end lg:pr-8 max-w-md">
+          <div className="flex flex-col items-center lg:items-start gap-4 md:gap-6  w-full max-w-md">
             <Logo />
-            <div className="text-center lg:text-left space-y-4">
+            <div className="text-center lg:text-left space-y-7">
               <h1
-                className="text-white text-[28px] md:text-[36px] lg:text-[40px] leading-[1.15] font-semibold"
+                className="text-white text-4xl sm:text-[40px] leading-[1.15] "
                 style={{
                   fontFamily: "General Sans, Satoshi, sans-serif",
-                  textShadow:
-                    "0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 255, 5, 0.3), 4px 4px 12px rgba(0, 0, 0, 0.95), 2px 2px 4px rgba(0, 0, 0, 1)",
+                  
                 }}
               >
-                Ready to See What&apos;s Been Hidden in Plain Sight?
+                Ready to See <br/>What&apos;s Been Hidden <br/>in Plain Sight?
               </h1>
               <p
-                className="text-white/80 text-[15px] md:text-[16px] leading-[1.6] font-normal"
+                className="text-white text-[15px] md:text-[16px] leading-[1.6] "
                 style={{
                   fontFamily: "Satoshi, sans-serif",
-                  textShadow:
-                    "0 0 20px rgba(255, 255, 255, 0.5), 2px 2px 8px rgba(0, 0, 0, 0.9)",
                 }}
               >
-                Schedule your private 1:1 strategy session to discover how Time
+                Schedule your private 1:1 strategy session to discover how <br/>Time
                 & Price moves all markets.
               </p>
-              <div className="pt-1 border-t border-white/10 mt-4">
+              <div className="pt-1 lg:pt-0 border-t border-white/10 ">
                 <p
-                  className="text-white/70 text-[13px] md:text-[14px] leading-[1.5] font-normal"
+                  className="text-white text-[13px] md:text-[14px] leading-[1.5] "
                   style={{
                     fontFamily: "Satoshi, sans-serif",
-                    textShadow:
-                      "0 0 15px rgba(255, 255, 255, 0.4), 2px 2px 6px rgba(0, 0, 0, 0.9)",
                   }}
                 >
                   Limited spots available. Select a time below.
@@ -57,8 +53,27 @@ export const MovieCalendarTemplate = () => {
             </div>
           </div>
 
+            <div
+            className="fixed -left-[25%] w-[60%] h-[600px] transition-opacity duration-100 ease-linear md:h-[700px] md:opacity-40 top-0 pointer-events-none -z-10"
+            style={{
+              background: 
+              // "red",
+                "radial-gradient(ellipse 50% 50% at 50% 15%, rgba(0, 255, 5, 0.28) 50%, rgba(0, 255, 5, 0.2) 80%, transparent 40%)",
+              filter: "blur(60px)",
+              mixBlendMode: "screen",
+            }}
+          />
+
           {/* Right Column - Calendar (2/3) */}
-          <div className="flex items-center justify-center w-full">
+          <div className="relative w-full lg:max-w-[595px]">
+              <div className="absolute -top-[40%] left-[48%] -translate-x-1/2  h-[150%] w-[240%] -z-10">
+                  <Image
+                    src="/form-gradient-bg.png"
+                    alt=""
+                    fill
+                    className="object-contain"
+                  />
+              </div>
             <CalendarSection />
           </div>
         </div>

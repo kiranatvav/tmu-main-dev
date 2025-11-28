@@ -3,8 +3,8 @@ import { RouteProtection } from "@/components/organisms/route-protection";
 
 export default function BookPage() {
   return (
-    <RouteProtection>
+    // <RouteProtection>
       <MovieCalendarTemplate />
-    </RouteProtection>
+    // </RouteProtection>
   );
 }

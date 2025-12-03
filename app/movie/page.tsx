@@ -3,8 +3,8 @@ import { RouteProtection } from "@/components/organisms/route-protection";
 
 export default function MoviePage() {
   return (
-    <RouteProtection>
+    // <RouteProtection>
       <MovieWatchTemplate />
-    </RouteProtection>
+    {/* </RouteProtection> */}
   );
 }

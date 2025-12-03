@@ -140,16 +140,16 @@ export const MovieWatchTemplate = () => {
           className="w-full rounded-4xl aspect-[16/9] flex justify-center items-center p-[1px] flex-shrink-0">
             {/* TEMPORARY: Using vturb VideoPlayer until uncropped videos are available from CloudFront.
                 Once uncropped videos are ready, uncomment ReactVideoPlayer below and remove VideoPlayer. */}
-            <VideoPlayer
+            {/* <VideoPlayer
               className="relative rounded-4xl overflow-hidden"
               exitIntentOpen={showModal}
               playerId="vid-6924ba788dbc00147a278f10"
               scriptSrc="https://scripts.converteai.net/2f1a2a53-b695-4680-8c86-09db4b468975/players/6924ba788dbc00147a278f10/v4/player.js"
-            />
+            /> */}
             {/* TEMPORARY: Commented out until uncropped videos are available from CloudFront */}
-            {/* <div className="overflow-hidden rounded-4xl aspect-video relative">
+            <div className="overflow-hidden rounded-4xl aspect-video relative">
               <ReactVideoPlayer showControls videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" />
-            </div> */}
+            </div>
           </div>
           <div className="w-full md:w-[90%] flex justify-center">
             {/* CTA Section with glow flex justify-center items-center */}

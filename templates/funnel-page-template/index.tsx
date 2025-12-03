@@ -104,12 +104,12 @@ export const FunnelPageTemplate = () => {
             className="w-full relative max-w-[30rem] md:max-w-[56rem] rounded-4xl p-[1px]  flex flex-col items-center ">
               
               {/* Currently using vturb VideoPlayer on home page - raw embed without custom styling */}
-              <VideoPlayer exitIntentOpen={showModal} className="rounded-4xl overflow-hidden" />
+              {/* <VideoPlayer exitIntentOpen={showModal} className="rounded-4xl overflow-hidden" /> */}
 
 
               <div className="overflow-hidden rounded-4xl aspect-video relative">
               {/* TEMPORARY: Signature overlay commented out - not compatible with vturb player layout */}
-              {/* <div className="absolute bottom-3 md:bottom-8 right-3 md:right-8  z-20">
+              <div className="absolute bottom-3 md:bottom-8 right-3 md:right-8  z-20">
                 <div className="flex gap-2 md:gap-5 items-end">
                   <div className="w-[48px] md:w-[72px]  aspect-square">
                   <Image src={"/tmu-white-logo.png"} alt="The Matrix Unlocked" fill className="object-contain max-w-[48px] md:max-w-[72px]" />
@@ -122,10 +122,10 @@ export const FunnelPageTemplate = () => {
                   <p className="text-white text-[10px] md:text-xs">The Matrix Unlocked</p>
                 </div>
                 </div>
-              </div> */}
+              </div>
 
               {/* ReactVideoPlayer with CloudFront video - available for future use when uncropped videos are ready */}
-              {/* <ReactVideoPlayer videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" /> */}
+              <ReactVideoPlayer videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" />
             </div>
 
             </div>

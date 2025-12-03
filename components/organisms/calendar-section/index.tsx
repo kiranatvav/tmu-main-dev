@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { usePostHog } from "posthog-js/react";
 
 export const CalendarSection = () => {
   const [calendarUrl, setCalendarUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
+  const posthog = usePostHog();
+  const loadStartTime = useRef<number>(0);
 
   // Normalized thank-you destination (existing route: /thankyou)
   const redirectToThankYou = () => {
@@ -12,8 +15,19 @@ export const CalendarSection = () => {
   };
 
   useEffect(() => {
+    // Track calendar page viewed
+    if (posthog) {
+      posthog.capture("calendar_page_viewed");
+    }
+
     // Fetch geo location data
     const fetchGeoData = async () => {
+      // Track calendar load start
+      loadStartTime.current = performance.now();
+      if (posthog) {
+        posthog.capture("calendar_load_started");
+      }
+
       try {
         const response = await fetch("/api/geo");
         const geoData = await response.json();
@@ -39,6 +53,18 @@ export const CalendarSection = () => {
         }
       } catch (error) {
         console.error("Error fetching geo data:", error);
+
+        // Track calendar load error
+        const loadTime = performance.now() - loadStartTime.current;
+        if (posthog) {
+          posthog.capture("calendar_load_error", {
+            error: "geo_fetch_failed",
+            load_time_ms: loadTime,
+            error_message:
+              error instanceof Error ? error.message : "Unknown error",
+          });
+        }
+
         // Default to Rest of World calendar on error
         setCalendarUrl(
           "https://api.leadconnectorhq.com/widget/booking/b8qewifcw8aBKWGiXcHI"
@@ -49,6 +75,7 @@ export const CalendarSection = () => {
     };
 
     fetchGeoData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -59,6 +86,27 @@ export const CalendarSection = () => {
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.type = "text/javascript";
     script.async = true;
+
+    script.onload = () => {
+      const loadTime = performance.now() - loadStartTime.current;
+      if (posthog) {
+        posthog.capture("calendar_loaded", {
+          load_time_ms: Math.round(loadTime),
+          load_success: true,
+        });
+      }
+    };
+
+    script.onerror = () => {
+      const loadTime = performance.now() - loadStartTime.current;
+      if (posthog) {
+        posthog.capture("calendar_load_error", {
+          error: "script_load_failed",
+          load_time_ms: Math.round(loadTime),
+        });
+      }
+    };
+
     document.body.appendChild(script);
 
     return () => {
@@ -67,6 +115,7 @@ export const CalendarSection = () => {
         document.body.removeChild(script);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarUrl]);
 
   useEffect(() => {
@@ -93,12 +142,19 @@ export const CalendarSection = () => {
         /booking|appointment|scheduled|success|confirmed/.test(asJson);
 
       if (matchString) {
+        // Track booking confirmation
+        if (posthog) {
+          posthog.capture("calendar_booking_confirmed", {
+            timestamp: new Date().toISOString(),
+          });
+        }
         redirectToThankYou();
       }
     };
 
     window.addEventListener("message", handleBookingMessage);
     return () => window.removeEventListener("message", handleBookingMessage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -137,7 +193,7 @@ export const CalendarSection = () => {
             style={{
               width: "100%",
               border: "none",
-              borderRadius : "32px",
+              borderRadius: "32px",
               overflow: "hidden",
               minHeight: "600px",
             }}

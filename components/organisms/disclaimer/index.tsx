@@ -13,11 +13,11 @@ export const Disclaimer = () => {
           </p>
         </div> */}
 
-                {/* Copyright */}
+        {/* Copyright */}
         <div className="text-center ">
           <p className="text-xs text-[#FFFFFF]">
-            © {new Date().getFullYear()} Copyright The Matrix Unlocked. All rights
-            reserved.
+            © {new Date().getFullYear()} Copyright The Matrix Unlocked. All
+            rights reserved.
           </p>
         </div>
 

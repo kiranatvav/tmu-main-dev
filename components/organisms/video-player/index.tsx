@@ -80,7 +80,6 @@ export const VideoPlayer = ({
     //     el.style.setProperty("inset", "0", "important");
     //   }
     // }, 300);
-
   }, [playerId, scriptSrc, removePlayerScript]);
 
   // Initial load
@@ -160,5 +159,7 @@ export const VideoPlayer = ({
   // Cleanup on unmount
   useEffect(() => () => destroyPlayer(), [destroyPlayer]);
 
-  return <div className={`absolute top-1/2 -translate-y-1/2 !w-[180%] max-h-[37rem]  ${className}`} ref={containerRef} />;
+  return (
+    <div className={`relative w-full h-full ${className}`} ref={containerRef} />
+  );
 };

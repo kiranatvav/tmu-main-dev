@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, FormEvent, useRef } from "react";
+import { useState, FormEvent, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import * as Sentry from "@sentry/nextjs";
+import { usePostHog } from "posthog-js/react";
 import { Input } from "@/components/atoms/input";
 import { Button } from "@/components/atoms/button";
 import { FormContainer } from "@/components/organisms/form-container";
@@ -15,6 +16,14 @@ export const LeadForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const redirectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const posthog = usePostHog();
+
+  // Track form viewed
+  useEffect(() => {
+    if (posthog) {
+      posthog.capture("form_viewed");
+    }
+  }, [posthog]);
 
   const nameValid = !!formData.name.trim();
   const emailValid = (() => {
@@ -28,16 +37,38 @@ export const LeadForm = () => {
     setIsSubmitting(true);
     setError(null);
 
+    // Track form submission attempt
+    if (posthog) {
+      posthog.capture("form_submitted", {
+        fields_filled: [
+          formData.name ? "name" : null,
+          formData.email ? "email" : null,
+        ].filter(Boolean).length,
+      });
+    }
+
     // Client-side validation - keep as inline errors
     if (!nameValid) {
       setError("Please enter your name");
       setIsSubmitting(false);
+      if (posthog) {
+        posthog.capture("form_submit_error", {
+          error: "validation_failed",
+          field: "name",
+        });
+      }
       return;
     }
 
     if (!emailValid) {
       setError("Please enter a valid email address");
       setIsSubmitting(false);
+      if (posthog) {
+        posthog.capture("form_submit_error", {
+          error: "validation_failed",
+          field: "email",
+        });
+      }
       return;
     }
 
@@ -72,7 +103,32 @@ export const LeadForm = () => {
           level: "warning",
           extra: { status: response.status, error: data.error },
         });
+        if (posthog) {
+          posthog.capture("form_submit_error", {
+            error: "api_error",
+            status: response.status,
+            message: data.error,
+          });
+        }
         throw new Error(data.error || "Failed to submit form");
+      }
+
+      // Track successful form submission
+      if (posthog) {
+        posthog.capture("form_submit_success", {
+          email: formData.email,
+        });
+        posthog.capture("lead_captured", {
+          name: formData.name,
+          email: formData.email,
+        });
+        // Identify the user in PostHog
+        posthog.identify(formData.email, {
+          name: formData.name,
+          email: formData.email,
+          first_seen: new Date().toISOString(),
+          signup_source: "lead_form",
+        });
       }
 
       // Safe localStorage with verification
@@ -112,6 +168,11 @@ export const LeadForm = () => {
         description: "Redirecting to the movie...",
         duration: 2000,
       });
+
+      // Track movie page access
+      if (posthog) {
+        posthog.capture("movie_page_accessed");
+      }
 
       // Redirect to movie page
       window.location.href = "/movie";
@@ -161,11 +222,38 @@ export const LeadForm = () => {
   const handleChange =
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setError(null); // Clear error when user starts typing
+      const newValue = e.target.value;
       setFormData((prev) => ({
         ...prev,
-        [field]: e.target.value,
+        [field]: newValue,
       }));
+
+      // Track field completion when it becomes valid
+      if (posthog) {
+        if (field === "name" && newValue.trim()) {
+          posthog.capture("form_field_completed", {
+            field: "name",
+            valid: true,
+          });
+        } else if (field === "email") {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (emailRegex.test(newValue.trim())) {
+            posthog.capture("form_field_completed", {
+              field: "email",
+              valid: true,
+            });
+          }
+        }
+      }
     };
+
+  const handleFieldFocus = (field: string) => () => {
+    if (posthog) {
+      posthog.capture("form_field_focused", {
+        field,
+      });
+    }
+  };
 
   return (
     <FormContainer className="w-full  lg:max-w-[21.8rem]">
@@ -198,6 +286,7 @@ export const LeadForm = () => {
           placeholder="Full name"
           value={formData.name}
           onChange={handleChange("name")}
+          onFocus={handleFieldFocus("name")}
           fullWidth
           required
           disabled={isSubmitting}
@@ -210,6 +299,7 @@ export const LeadForm = () => {
           placeholder="Email Address"
           value={formData.email}
           onChange={handleChange("email")}
+          onFocus={handleFieldFocus("email")}
           fullWidth
           required
           disabled={isSubmitting}

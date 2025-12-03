@@ -6,11 +6,18 @@ import { SharedLayout } from "@/components/organisms/shared-layout";
 import { Logo } from "@/components/molecules/logo";
 import { ExitIntentModal } from "@/components/organisms/exit-intent-modal";
 import { useExitIntent } from "@/hooks/useExitIntent";
+import { usePageView } from "@/hooks/usePageView";
 import { ReactVideoPlayer } from "@/components/organisms/react-video-player";
 import Image from "next/image";
 
 export const FunnelPageTemplate = () => {
   const { showModal, closeModal } = useExitIntent({ enabled: false });
+
+  // Track page view
+  usePageView({
+    pageName: "home",
+    pagePath: "/",
+  });
 
   return (
     <SharedLayout hideLogo>
@@ -18,7 +25,7 @@ export const FunnelPageTemplate = () => {
       <div
         className="absolute inset-0 -z-30 "
         style={{
-          maxWidth : "100vw",
+          maxWidth: "100vw",
           backgroundImage: "url(/main-grid-bg.png)",
           backgroundSize: "cover",
           backgroundPosition: "top center",
@@ -31,14 +38,14 @@ export const FunnelPageTemplate = () => {
       <div className="w-full flex flex-col items-center justify-center overflow-x-clip">
         <div className="w-full flex flex-col items-center">
           {/* Logo - Top Center */}
-          <div className="flex justify-center mt-10 mb-6">
+          <div className="flex justify-center mt-20 mb-6">
             <Logo />
           </div>
 
           {/* Headline Text - Centered */}
-          <div className="text-center mb-6 lg:mb-10 max-w-[720px] w-full mx-auto">
+          <div className="text-center mb-6 lg:mb-10 max-w-[1024px] w-full mx-auto px-6">
             <h1
-              className="text-[clamp(1.1rem,2.8vw,1.7rem)] md:text-[clamp(1.6rem,2.5vw,2.5rem)]  leading-tight text-white mx-auto"
+              className="text-[2.5rem]   leading-tight text-white mx-auto"
               style={{
                 fontFamily: "General Sans, Satoshi, sans-serif",
                 // textShadow:
@@ -48,7 +55,7 @@ export const FunnelPageTemplate = () => {
               You&apos;ve Been Playing the Market&apos;s Game.
             </h1>
             <h2
-              className="text-[clamp(1.05rem,2.6vw,1.65rem)] md:text-[clamp(1.5rem,2.5vw,2.5rem)]   leading-tight text-white mx-auto"
+              className="text-[2.5rem]   leading-tight text-white mx-auto"
               style={{
                 fontFamily: "General Sans, Satoshi, sans-serif",
                 // textShadow:
@@ -65,7 +72,7 @@ export const FunnelPageTemplate = () => {
                 }}
               >
                 Time
-              <div className="absolute  w-full h-full bg-[linear-gradient(94.33deg,#00FF05_0%,#A6FF00_100%)] top-0 -rotate-2 -left-0 -z-10"></div>
+                <div className="absolute  w-full h-full bg-[linear-gradient(94.33deg,#00FF05_0%,#A6FF00_100%)] top-0 -rotate-2 -left-0 -z-10"></div>
               </span>{" "}
               to Learn the Rules.
             </h2>
@@ -80,11 +87,29 @@ export const FunnelPageTemplate = () => {
           </div>
 
           {/* Two Column Grid: Video wider than form - Centered */}
-          <div className="flex flex-col lg:flex-row justify-center items-center gap-8 max-w-[1140px] w-full h-full mb-16 px-6 lg:px-0 ">
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-8 max-w-[1140px] w-full h-full mb-16 px-6  ">
             {/* Left Column - Video (wider, first on mobile) */}
-            <div className="w-full relative max-w-[30rem] md:max-w-[56rem] h-full   overflow-hidden rounded-4xl flex flex-col items-center ">
-              {/* <VideoPlayer exitIntentOpen={showModal} className=" relative overflow-hidden " /> */}
-              <div className="absolute bottom-3 md:bottom-8 right-3 md:right-8  z-20">
+            {/* TEMPORARY: Simplified container for vturb player - custom styling removed due to layout conflicts.
+                Custom rounded borders and signature overlay commented out until vturb styling is resolved
+                or when switching back to ReactVideoPlayer. */}
+            <div 
+            style={{
+              background: "black",
+              border: "1px solid transparent",
+              backgroundImage:
+                "conic-gradient(from 0deg, rgba(0,255,5,0.7) 50deg, rgba(0,255,5,0) 90deg, rgba(255,255,255,0.5) 220deg, rgba(255,255,255,0) 300deg, rgba(0,255,5,0.7) 360deg)",
+              backgroundOrigin: "border-box",
+              backgroundClip: "border-box",
+            }}
+            className="w-full relative max-w-[30rem] md:max-w-[56rem] rounded-4xl p-[1px]  flex flex-col items-center ">
+              
+              {/* Currently using vturb VideoPlayer on home page - raw embed without custom styling */}
+              <VideoPlayer exitIntentOpen={showModal} className="rounded-4xl overflow-hidden" />
+
+
+              <div className="overflow-hidden rounded-4xl aspect-video relative">
+              {/* TEMPORARY: Signature overlay commented out - not compatible with vturb player layout */}
+              {/* <div className="absolute bottom-3 md:bottom-8 right-3 md:right-8  z-20">
                 <div className="flex gap-2 md:gap-5 items-end">
                   <div className="w-[48px] md:w-[72px]  aspect-square">
                   <Image src={"/tmu-white-logo.png"} alt="The Matrix Unlocked" fill className="object-contain max-w-[48px] md:max-w-[72px]" />
@@ -97,8 +122,12 @@ export const FunnelPageTemplate = () => {
                   <p className="text-white text-[10px] md:text-xs">The Matrix Unlocked</p>
                 </div>
                 </div>
-              </div>
-              <ReactVideoPlayer videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" />
+              </div> */}
+
+              {/* ReactVideoPlayer with CloudFront video - available for future use when uncropped videos are ready */}
+              {/* <ReactVideoPlayer videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" /> */}
+            </div>
+
             </div>
 
             {/* Right Column - Form */}

@@ -2,10 +2,17 @@
 
 import { SharedLayout } from "@/components/organisms/shared-layout";
 import { Logo } from "@/components/molecules/logo";
-import Image from "next/image";
+// import Image from "next/image";
 import CongratulationsSteps from "@/components/organisms/steps-section";
+import { usePageView } from "@/hooks/usePageView";
 
 export const ThankYouTemplate = () => {
+  // Track page view
+  usePageView({
+    pageName: "thank_you",
+    pagePath: "/thankyou",
+  });
+
   return (
     <SharedLayout hideLogo>
       {/* BG layer */}
@@ -19,6 +26,17 @@ export const ThankYouTemplate = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
+
+      <div
+        className="absolute left-0  w-full md:w-[250px] h-[460px] md:h-[250px] top-0  pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 40% 70% at 30% 0%, rgba(0, 255, 5, 0.23) 70%, rgba(0, 255, 5, 0.2) 40%, transparent 70%)",
+          filter: "blur(50px)",
+          mixBlendMode: "screen",
+        }}
+      />
+
       <div className="w-full flex items-center justify-center px-4 py-8 overflow-x-clip">
         <div className="max-w-4xl w-full text-center space-y-8">
           {/* Logo */}
@@ -54,12 +72,16 @@ export const ThankYouTemplate = () => {
               </defs>
             </svg>
             <div
-              className="absolute overflow-visible -top-[20%] left-[49%] -translate-y-1/2 -translate-x-1/2 scale-200 w-[400px] aspect-square"
+              className="absolute overflow-visible  -top-[20%] left-[49%] -translate-y-1/2 -translate-x-1/2 scale-200 w-[400px] aspect-square"
               style={{
                 backgroundImage: "url(/tick-rays-v1.png)",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
+                WebkitMaskImage:
+                  "radial-gradient(circle, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 80%)",
+                maskImage:
+                  "radial-gradient(circle, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 80%)",
               }}
             ></div>
           </div>
@@ -220,10 +242,9 @@ export const ThankYouTemplate = () => {
 
             {/* Additional Message */}
             <p
-              className="text-white/85 text-[14px] md:text-[15px] leading-[1.6] mt-8"
+              className="text-white text-start md:text-center w-[85%] md:w-full text-[14px] md:text-[15px] leading-[1.6] mt-8"
               style={{
                 fontFamily: "Satoshi, sans-serif",
-                textShadow: "1px 1px 6px rgba(0, 0, 0, 0.9)",
               }}
             >
               We look forward to showing you what&apos;s been hidden in plain

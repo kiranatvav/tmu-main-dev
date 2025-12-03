@@ -5,10 +5,16 @@ import { SharedLayout } from "@/components/organisms/shared-layout";
 import { Logo } from "@/components/molecules/logo";
 import { ExitIntentModal } from "@/components/organisms/exit-intent-modal";
 import { useExitIntent } from "@/hooks/useExitIntent";
-import Image from "next/image";
+import { usePageView } from "@/hooks/usePageView";
 
 export const MovieCalendarTemplate = () => {
   const { showModal, closeModal } = useExitIntent({ enabled: false });
+
+  // Track calendar page view
+  usePageView({
+    pageName: "calendar",
+    pagePath: "/book",
+  });
 
   return (
     <SharedLayout hideLogo>
@@ -26,7 +32,7 @@ export const MovieCalendarTemplate = () => {
           backgroundPosition: `top center`,
         }}
       />
-      
+
       {/* Exit Intent Modal */}
       <ExitIntentModal isOpen={showModal} onClose={closeModal} />
       {/* Parent Container */}
@@ -41,10 +47,11 @@ export const MovieCalendarTemplate = () => {
                 className="text-white text-4xl sm:text-[40px] leading-[1.15] "
                 style={{
                   fontFamily: "General Sans, Satoshi, sans-serif",
-                  
                 }}
               >
-                Ready to See <br/>What&apos;s Been Hidden <br/>in Plain Sight?
+                Ready to See <br />
+                What&apos;s Been Hidden <br />
+                in Plain Sight?
               </h1>
               <p
                 className="text-white text-[15px] md:text-[16px] leading-[1.6] "
@@ -52,8 +59,9 @@ export const MovieCalendarTemplate = () => {
                   fontFamily: "Satoshi, sans-serif",
                 }}
               >
-                Schedule your private 1:1 strategy session to discover how <br/>Time
-                & Price moves all markets.
+                Schedule your private 1:1 strategy session to discover how{" "}
+                <br />
+                Time & Price moves all markets.
               </p>
               <div className="pt-1 lg:pt-0 ">
                 <p
@@ -68,11 +76,11 @@ export const MovieCalendarTemplate = () => {
             </div>
           </div>
 
-            <div
+          <div
             className="fixed -left-[25%] w-[60%] h-[600px] transition-opacity duration-100 ease-linear md:h-[700px] md:opacity-40 top-0 pointer-events-none -z-10"
             style={{
-              background: 
-              // "red",
+              background:
+                // "red",
                 "radial-gradient(ellipse 50% 50% at 50% 15%, rgba(0, 255, 5, 0.28) 50%, rgba(0, 255, 5, 0.2) 80%, transparent 40%)",
               filter: "blur(60px)",
               mixBlendMode: "screen",
@@ -81,14 +89,15 @@ export const MovieCalendarTemplate = () => {
 
           {/* Right Column - Calendar (2/3) */}
           <div className="relative w-full lg:max-w-[595px]">
-              <div className="absolute -top-[23rem] lg:-top-[22rem] left-[48%] -translate-x-1/2 h-[190%] max-h-[78rem] w-[140%] md:w-[180%]  -z-10">
-                  <Image
-                    src="/form-gradient-bg.png"
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-              </div>
+            <div
+              className="absolute -top-[23rem] lg:-top-[22rem] left-[48%] -translate-x-1/2 h-[190%] max-h-[78rem] w-[140%] md:w-[180%]  -z-10"
+              style={{
+                backgroundImage: "url('/form-gradient-bg.png')",
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+            />
             <CalendarSection />
           </div>
         </div>

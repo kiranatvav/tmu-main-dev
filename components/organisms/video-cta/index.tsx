@@ -1,14 +1,28 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { usePostHog } from "posthog-js/react";
 import { Button } from "@/components/atoms/button";
 
 export const VideoCTA = () => {
   const router = useRouter();
+  const posthog = usePostHog();
+
+  const handleBookingClick = () => {
+    // Track CTA click
+    if (posthog) {
+      posthog.capture("cta_clicked", {
+        cta_text: "SCHEDULE NOW",
+        location: "movie_page_video_cta",
+      });
+      posthog.capture("booking_button_clicked");
+    }
+    router.push("/book");
+  };
 
   return (
     <div
-      className="relative bg-[#030303] rounded-[20px] px-8 py-8  flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
+      className="relative bg-[#030303] rounded-4xl px-8 py-8  flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
       style={{
         border: "1px solid transparent",
         backgroundImage:
@@ -23,8 +37,9 @@ export const VideoCTA = () => {
           className="text-white text-[24px] md:text-[32px] leading-[1.1] font-normal mb-3"
           style={{ fontFamily: "General Sans, Satoshi, sans-serif" }}
         >
-          Book a call, get clarity, and enroll into the 
-          <br/>Lifetime TMU Membership.
+          Book a call, get clarity, and enroll into the
+          <br />
+          Lifetime TMU Membership.
         </h2>
         {/* <p
           className="text-white text-[14px] md:text-[16px] leading-[1.5] font-normal max-w-[667px]"
@@ -37,7 +52,7 @@ export const VideoCTA = () => {
       {/* Right Side - CTA Button */}
       <div className="flex-shrink-0 w-full md:w-auto">
         <Button
-          onClick={() => router.push("/book")}
+          onClick={handleBookingClick}
           variant="cta"
           className="!w-fit md:!w-[214px]"
         >

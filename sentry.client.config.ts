@@ -9,6 +9,9 @@ Sentry.init({
     process.env.NEXT_PUBLIC_SENTRY_DSN ||
     "https://35db74757b4c7e6ffc5871646b1be1a5@o4510425438814208.ingest.de.sentry.io/4510425441239120",
 
+  // Use tunnel route to avoid ad-blockers and CORS issues
+  tunnel: "/monitoring",
+
   // Adjust sample rates for production
   tracesSampleRate: 1.0,
 

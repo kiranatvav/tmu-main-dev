@@ -6,10 +6,17 @@ import { VideoCTA } from "@/components/organisms/video-cta";
 import { VideoPlayer } from "@/components/organisms/video-player";
 import { ExitIntentModal } from "@/components/organisms/exit-intent-modal";
 import { useExitIntent } from "@/hooks/useExitIntent";
+import { usePageView } from "@/hooks/usePageView";
 import { ReactVideoPlayer } from "@/components/organisms/react-video-player";
 
 export const MovieWatchTemplate = () => {
   const { showModal, closeModal } = useExitIntent({ enabled: false });
+
+  // Track page view
+  usePageView({
+    pageName: "movie",
+    pagePath: "/movie/watch",
+  });
 
   return (
     <SharedLayout hideLogo hideBinary>
@@ -17,8 +24,18 @@ export const MovieWatchTemplate = () => {
       <div
         className="absolute inset-0 -z-30 "
         style={{
-          maxWidth : "100vw",
-          backgroundImage: "url(/main-grid-bg.png)",
+          maxWidth: "100vw",
+          backgroundImage: "url(/movie-page-main-bg.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+            <div
+        className="absolute inset-0 -bottom-18 -z-30 "
+        style={{
+          maxWidth: "100vw",
+          backgroundImage: "url(/movie-pattern-bg.png)",
           backgroundSize: "cover",
           backgroundPosition: "top center",
           backgroundRepeat: "no-repeat",
@@ -29,7 +46,7 @@ export const MovieWatchTemplate = () => {
       {/* Main Content - All visible on desktop */}
       <div className="w-full flex flex-col items-center justify-center py-4 md:py-6 px-4">
         {/* Logo */}
-        <div className="mb-3 md:mb-4 flex-shrink-0 relative">
+        <div className="mt-10 mb-3 md:mb-4 flex-shrink-0 relative">
           <Logo />
           {/* Oval Glow Behind BOOK NOW Button */}
           <div
@@ -37,8 +54,8 @@ export const MovieWatchTemplate = () => {
             style={{
               width: "80%",
               height: "150px",
-              background: 
-              // "red",
+              background:
+                // "red",
                 "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 255, 5, 0.40) 90%, rgba(0, 255, 5, 0.2) 30%, transparent 70%)",
               filter: "blur(60px)",
               mixBlendMode: "screen",
@@ -47,15 +64,16 @@ export const MovieWatchTemplate = () => {
         </div>
 
         {/* Headline Text */}
-        <div className="text-center relative mb-4 md:mb-6 max-w-4xl px-2">
+        <div className="text-center relative mb-4 md:mb-6  max-w-2xl px-6">
           <h2
-            className="text-2xl md:text-3xl lg:text-4xl  text-white mb-6"
+            className="text-[40px] text-white mb-6"
             style={{
               fontFamily: "General Sans, Satoshi, sans-serif",
             }}
           >
             Watch{" "}
-            <span className=" inline-block relative pb-4">
+            <span className="whitespace-nowrap md:whitespace-normal">
+              <span className=" inline-block relative pb-4">
               <span
                 style={{
                   color: "#000000",
@@ -91,15 +109,16 @@ export const MovieWatchTemplate = () => {
               </div> */}
             </span>{" "}
             Movie
+            </span>
           </h2>
-                    {/* Oval Glow Behind BOOK NOW Button */}
+          {/* Oval Glow Behind BOOK NOW Button */}
           <div
             className="absolute left-[40%] -translate-x-1/2 top-[90%] -translate-y-1/2 pointer-events-none z-0"
             style={{
               width: "80%",
               height: "100px",
-              background: 
-              // "red",
+              background:
+                // "red",
                 "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 255, 5, 0.40) 90%, rgba(0, 255, 5, 0.2) 30%, transparent 70%)",
               filter: "blur(60px)",
               mixBlendMode: "screen",
@@ -107,41 +126,53 @@ export const MovieWatchTemplate = () => {
           />
         </div>
 
-        <div className="relative  flex flex-col justify-center items-center gap-8 overflow-x-clip">
+        <div className="relative w-full px-6 flex flex-col justify-center max-w-[1140px] items-center gap-8 overflow-x-clip">
           {/* Video Player - Using VideoPlayer component */}
-          <div className="w-full max-w-[30rem] md:max-w-[37rem] lg:max-w-[55vw] overflow-hidden rounded-4xl aspect-[16/9] flex justify-center items-center  flex-shrink-0">
-            {/* <VideoPlayer
-              className="relative"
+          <div 
+            style={{
+              background: "black",
+              border: "1px solid transparent",
+              backgroundImage:
+                "conic-gradient(from 0deg, rgba(0,255,5,0.7) 50deg, rgba(0,255,5,0) 90deg, rgba(255,255,255,0.5) 220deg, rgba(255,255,255,0) 300deg, rgba(0,255,5,0.7) 360deg)",
+              backgroundOrigin: "border-box",
+              backgroundClip: "border-box",
+            }}
+          className="w-full rounded-4xl aspect-[16/9] flex justify-center items-center p-[1px] flex-shrink-0">
+            {/* TEMPORARY: Using vturb VideoPlayer until uncropped videos are available from CloudFront.
+                Once uncropped videos are ready, uncomment ReactVideoPlayer below and remove VideoPlayer. */}
+            <VideoPlayer
+              className="relative rounded-4xl overflow-hidden"
               exitIntentOpen={showModal}
               playerId="vid-6924ba788dbc00147a278f10"
               scriptSrc="https://scripts.converteai.net/2f1a2a53-b695-4680-8c86-09db4b468975/players/6924ba788dbc00147a278f10/v4/player.js"
-            /> */}
-            <ReactVideoPlayer showControls videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" />
+            />
+            {/* TEMPORARY: Commented out until uncropped videos are available from CloudFront */}
+            {/* <div className="overflow-hidden rounded-4xl aspect-video relative">
+              <ReactVideoPlayer showControls videoUrl="https://d2zc0gy08nitgj.cloudfront.net/video-data/Out_now_Reel4_v2_cropped.mp4" />
+            </div> */}
           </div>
-              <div className="w-full md:w-[90%] ">
-                    
-              {/* CTA Section with glow flex justify-center items-center */}
-              <div className="w-full max-w-[95vw] md:max-w-[85vw] lg:max-w-[55vw] relative mt-3 md:mt-4 flex-shrink-0 ">
-                {/* Oval Glow Behind BOOK NOW Button */}
-                <div
-                  className="absolute left-1/2 -translate-x-1/2 top-[35%] -translate-y-1/2 pointer-events-none z-0"
-                  style={{
-                    width: "80%",
-                    height: "150px",
-                    background: 
+          <div className="w-full md:w-[90%] flex justify-center">
+            {/* CTA Section with glow flex justify-center items-center */}
+            <div className="w-full  relative mt-3 md:mt-4 flex-shrink-0 ">
+              {/* Oval Glow Behind BOOK NOW Button */}
+              <div
+                className="absolute left-1/2 -translate-x-1/2 top-[35%] -translate-y-1/2 pointer-events-none z-0"
+                style={{
+                  width: "80%",
+                  height: "150px",
+                  background:
                     // "red",
-                      "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 255, 5, 0.45) 90%, rgba(0, 255, 5, 0.2) 30%, transparent 70%)",
-                    filter: "blur(60px)",
-                    mixBlendMode: "screen",
-                  }}
-                />
-                <div className="relative z-10 ">
-                  <VideoCTA />  
-                </div>
+                    "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0, 255, 5, 0.45) 90%, rgba(0, 255, 5, 0.2) 30%, transparent 70%)",
+                  filter: "blur(60px)",
+                  mixBlendMode: "screen",
+                }}
+              />
+              <div className="relative z-10 ">
+                <VideoCTA />
               </div>
-              </div>
+            </div>
+          </div>
         </div>
-
       </div>
     </SharedLayout>
   );

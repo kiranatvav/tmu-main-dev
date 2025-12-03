@@ -5,6 +5,6 @@ export default function MoviePage() {
   return (
     // <RouteProtection>
       <MovieWatchTemplate />
-    {/* </RouteProtection> */}
+    //</RouteProtection> 
   );
 }

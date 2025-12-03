@@ -5,6 +5,6 @@ export default function BookPage() {
   return (
     // <RouteProtection>
       <MovieCalendarTemplate />
-    {/* </RouteProtection> */}
+    // </RouteProtection> 
   );
 }
